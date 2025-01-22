@@ -21,7 +21,7 @@ public class FileService extends Main {
             }
             FileOutputStream fileOutputStream = new FileOutputStream("File [ENCRYPTED].txt");
             CeasarCipher ceasarCipher = new CeasarCipher();
-            String msg1 = ceasarCipher.code(result, key);
+            String msg1 = ceasarCipher.code(result, Math.abs(key));
             fileOutputStream.write(msg1.getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -41,8 +41,8 @@ public class FileService extends Main {
             }
             FileOutputStream fileOutputStream1 = new FileOutputStream("File [ENCRYPTED][DECRYPTED].txt");
             CeasarCipher ceasarCipher = new CeasarCipher();
-            String msg1 = ceasarCipher.code(result, key);
-            String msg2 = ceasarCipher.deCode(msg1, key);
+            String msg1 = ceasarCipher.code(result, Math.abs(key));
+            String msg2 = ceasarCipher.deCode(msg1, Math.abs(key));
             fileOutputStream1.write(msg2.getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -60,7 +60,7 @@ public class FileService extends Main {
                 result += i + "\n";
             }
             CeasarCipher ceasarCipher = new CeasarCipher();
-            String msg1 = ceasarCipher.code(result, key);
+            String msg1 = ceasarCipher.code(result, Math.abs(key));
             for (int i = 1; i < 27; i++) {
                 String msg2 = ceasarCipher.deCode(msg1, i);
                 if (msg2.equals(result)) {
