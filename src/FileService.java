@@ -39,7 +39,7 @@ public class FileService extends Main {
             for (String i : list) {
                 result += i + "\n";
             }
-            FileOutputStream fileOutputStream1 = new FileOutputStream("File [DECRYPTED].txt");
+            FileOutputStream fileOutputStream1 = new FileOutputStream("File [ENCRYPTED][DECRYPTED].txt");
             CeasarCipher ceasarCipher = new CeasarCipher();
             String msg1 = ceasarCipher.code(result, key);
             String msg2 = ceasarCipher.deCode(msg1, key);
