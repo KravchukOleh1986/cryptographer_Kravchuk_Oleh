@@ -23,6 +23,7 @@ public class FileService extends Main {
             CeasarCipher ceasarCipher = new CeasarCipher();
             String msg1 = ceasarCipher.code(result, Math.abs(key));
             fileOutputStream.write(msg1.getBytes());
+            fileOutputStream.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -41,9 +42,9 @@ public class FileService extends Main {
             }
             FileOutputStream fileOutputStream1 = new FileOutputStream("File [ENCRYPTED][DECRYPTED].txt");
             CeasarCipher ceasarCipher = new CeasarCipher();
-            String msg1 = ceasarCipher.code(result, Math.abs(key));
-            String msg2 = ceasarCipher.deCode(msg1, Math.abs(key));
+            String msg2 = ceasarCipher.deCode(result, Math.abs(key));
             fileOutputStream1.write(msg2.getBytes());
+            fileOutputStream1.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

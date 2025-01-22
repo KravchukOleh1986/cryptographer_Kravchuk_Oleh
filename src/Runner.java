@@ -6,13 +6,13 @@ public class Runner extends Main {
     public void run(String command, String filePath, int key) {
         if (command.equalsIgnoreCase("ENCRYPT") && key != 0) {
             FileService fileService = new FileService();
-            fileService.Encrypted(filePath, key);
+            fileService.Encrypted(filePath, Math.abs(key));
         } else if (command.equalsIgnoreCase("DECRYPT") && key != 0) {
             FileService fileService = new FileService();
-            fileService.Decrypted(filePath, key);
+            fileService.Decrypted(filePath, Math.abs(key));
         } else if (command.equalsIgnoreCase("brute_force")) {
             FileService fileService = new FileService();
-            fileService.Brute_Force(filePath, key);
+            fileService.Brute_Force(filePath, Math.abs(key));
         }
     }
 }
