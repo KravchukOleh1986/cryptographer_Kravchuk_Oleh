@@ -1,33 +1,38 @@
-public class CeasarCipher extends Main {
+class CeasarCipher {
+    private final char BIG_LETTER_A = 65;
+    private final char BIG_LETTER_Z = 90;
+    private final char SMALL_LETTER_A = 97;
+    private final char SMALL_LETTER_Z = 122;
+    private final int ALPHABET_LENGTH = 26;
 
 
-    public String code(String s, int key) {
-        String str = "";
+    public String encrypt(String text, int key) {
+        String result = "";
 
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (c >= 65 && c <= 90) {
-                str += codeChar(c, key, 65);
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (c >= BIG_LETTER_A && c <= BIG_LETTER_Z) {
+                result += codeChar(c, key, BIG_LETTER_A);
             } else {
-                if (c >= 97 && c <= 122) {
-                    str += codeChar(c, key, 97);
+                if (c >= SMALL_LETTER_A && c <= SMALL_LETTER_Z) {
+                    result += codeChar(c, key, SMALL_LETTER_A);
                 } else {
-                    str += c;
+                    result += c;
                 }
             }
         }
-        return str;
+        return result;
     }
 
     private char codeChar(char c, int key, int shift) {
         int a = (int) c + key;
-        if (a >= shift + 26)
-            a -= 26;
+        if (a >= shift + ALPHABET_LENGTH)
+            a -= ALPHABET_LENGTH;
         return (char) a;
     }
 
-    public String deCode(String s, int key) {
-        return code(s, 26 - key);
+    public String decrypt(String text, int key) {
+        return encrypt(text, ALPHABET_LENGTH - key);
 
     }
 

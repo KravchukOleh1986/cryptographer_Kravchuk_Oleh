@@ -1,15 +1,13 @@
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Array;
 import java.util.List;
 
-public class FileService extends Main {
+class FileService {
 
 
-    public void Encrypted(String filePath, int key) {
+    void encryptFile(String filePath, int key) {
         try {
             String result = "";
             Path file = Path.of(filePath);
@@ -21,15 +19,16 @@ public class FileService extends Main {
             }
             FileOutputStream fileOutputStream = new FileOutputStream("File [ENCRYPTED].txt");
             CeasarCipher ceasarCipher = new CeasarCipher();
-            String msg1 = ceasarCipher.code(result, key);
-            fileOutputStream.write(msg1.getBytes());
+            String resultEncrypt = ceasarCipher.encrypt(result, Math.abs(key));
+            fileOutputStream.write(resultEncrypt.getBytes());
+            fileOutputStream.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
 
-    public void Decrypted(String filePath, int key) {
+    void decryptFile(String filePath, int key) {
         try {
             String result = "";
             Path file = Path.of(filePath);
@@ -41,15 +40,15 @@ public class FileService extends Main {
             }
             FileOutputStream fileOutputStream1 = new FileOutputStream("File [ENCRYPTED][DECRYPTED].txt");
             CeasarCipher ceasarCipher = new CeasarCipher();
-            String msg1 = ceasarCipher.code(result, key);
-            String msg2 = ceasarCipher.deCode(msg1, key);
-            fileOutputStream1.write(msg2.getBytes());
+            String resultDecrypt = ceasarCipher.decrypt(result, Math.abs(key));
+            fileOutputStream1.write(resultDecrypt.getBytes());
+            fileOutputStream1.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void Brute_Force(String filePath, int key) {
+    void bruteForceFile(String filePath, int key) {
         try {
             String result = "";
             Path file = Path.of(filePath);
@@ -60,15 +59,15 @@ public class FileService extends Main {
                 result += i + "\n";
             }
             CeasarCipher ceasarCipher = new CeasarCipher();
-            String msg1 = ceasarCipher.code(result, key);
+            String msg1 = ceasarCipher.encrypt(result, Math.abs(key));
             for (int i = 1; i < 27; i++) {
-                String msg2 = ceasarCipher.deCode(msg1, i);
-                if (msg2.equals(result)) {
+                String resultDecrypt = ceasarCipher.decrypt(msg1, i);
+                if (resultDecrypt.equals(result)) {
                     FileOutputStream fileOutputStream = new FileOutputStream("File [Key = " + i + "].txt");
-                    fileOutputStream.write(msg2.getBytes());
+                    fileOutputStream.write(resultDecrypt.getBytes());
                     fileOutputStream.close();
                 } else {
-                    msg2 = "";
+                    resultDecrypt = "";
                 }
             }
         } catch (IOException e) {
